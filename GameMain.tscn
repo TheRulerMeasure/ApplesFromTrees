@@ -1,0 +1,180 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://assets/sounds/throw.wav" type="AudioStream" id=1]
+[ext_resource path="res://Rock.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Ground.cs" type="Script" id=3]
+[ext_resource path="res://GameMain.cs" type="Script" id=4]
+[ext_resource path="res://temp/prop_images/arrow.png" type="Texture" id=5]
+[ext_resource path="res://assets/images/worldPeople.png" type="Texture" id=6]
+[ext_resource path="res://temp/prop_images/tree2.png" type="Texture" id=7]
+[ext_resource path="res://temp/prop_images/tree.png" type="Texture" id=8]
+[ext_resource path="res://assets/images/grass.png" type="Texture" id=9]
+[ext_resource path="res://assets/sounds/score.wav" type="AudioStream" id=10]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 300, 30 )
+
+[node name="GameMain" type="Node2D"]
+script = ExtResource( 4 )
+p1Turn = true
+rockPath = NodePath("Rock")
+p1ShootPosPath = NodePath("PlayerShootPos/P1ShootPos")
+p2ShootPosPath = NodePath("PlayerShootPos/P2ShootPos")
+girlSpritePath = NodePath("People/Girl")
+boySpritePath = NodePath("People/Boy")
+applesNodePath = NodePath("Apples")
+rockAmountLabelPath = NodePath("Control/MarginContainer/HBoxContainer/RockAmountLabel")
+p1MinAngNum = -80.0
+p1MaxAngNum = -5.0
+p2MinAngNum = 5.0
+p2MaxAngNum = 80.0
+maxRockAmount = 16
+appleAmount = 8
+scoreLeftLabelPath = NodePath("Control/LeftScoreUI/HBoxContainer/LeftScoreLabel")
+scoreRightLabelPath = NodePath("Control/RightScoreUI/HBoxContainer/RightScoreLabel")
+
+[node name="Statics" type="Node2D" parent="."]
+
+[node name="Grass" type="Sprite" parent="Statics"]
+position = Vector2( -38, 60 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 9 )
+centered = false
+
+[node name="Trees" type="Node2D" parent="Statics"]
+
+[node name="Tree" type="Sprite" parent="Statics/Trees"]
+position = Vector2( 69, 140 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="Tree2" type="Sprite" parent="Statics/Trees"]
+position = Vector2( 92, 30 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 7 )
+
+[node name="Tree3" type="Sprite" parent="Statics/Trees"]
+position = Vector2( 407, 137 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="Tree4" type="Sprite" parent="Statics/Trees"]
+position = Vector2( 429, 28 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 7 )
+
+[node name="Apples" type="Node2D" parent="."]
+
+[node name="ApplesLeft" type="Position2D" parent="Apples"]
+position = Vector2( 89, 34 )
+
+[node name="ApplesRight" type="Position2D" parent="Apples"]
+position = Vector2( 419, 31 )
+
+[node name="Ground" type="Area2D" parent="."]
+position = Vector2( 254, 204 )
+script = ExtResource( 3 )
+
+[node name="GroundCol" type="CollisionShape2D" parent="Ground"]
+shape = SubResource( 1 )
+
+[node name="ScoreSound" type="AudioStreamPlayer" parent="Ground"]
+stream = ExtResource( 10 )
+
+[node name="People" type="Node2D" parent="."]
+
+[node name="Girl" type="Sprite" parent="People"]
+position = Vector2( 199, 143 )
+texture = ExtResource( 6 )
+hframes = 2
+vframes = 2
+
+[node name="Boy" type="Sprite" parent="People"]
+position = Vector2( 303, 144 )
+texture = ExtResource( 6 )
+flip_h = true
+hframes = 2
+vframes = 2
+frame = 2
+
+[node name="PlayerShootPos" type="Node2D" parent="."]
+
+[node name="P1ShootPos" type="Position2D" parent="PlayerShootPos"]
+position = Vector2( 206, 144 )
+
+[node name="P1Arrow" type="Sprite" parent="PlayerShootPos/P1ShootPos"]
+visible = false
+position = Vector2( 0, -30 )
+texture = ExtResource( 5 )
+
+[node name="P2ShootPos" type="Position2D" parent="PlayerShootPos"]
+position = Vector2( 297, 145 )
+
+[node name="P2Arrow" type="Sprite" parent="PlayerShootPos/P2ShootPos"]
+visible = false
+position = Vector2( 0, -30 )
+texture = ExtResource( 5 )
+
+[node name="Rock" parent="." instance=ExtResource( 2 )]
+position = Vector2( 255, 154 )
+mode = 1
+
+[node name="Control" type="Control" parent="."]
+margin_right = 512.0
+margin_bottom = 240.0
+
+[node name="LeftScoreUI" type="MarginContainer" parent="Control"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -14.0
+margin_right = 17.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/LeftScoreUI"]
+margin_right = 17.0
+margin_bottom = 14.0
+
+[node name="LeftScoreLabel" type="Label" parent="Control/LeftScoreUI/HBoxContainer"]
+margin_right = 8.0
+margin_bottom = 14.0
+text = "0"
+
+[node name="RightScoreUI" type="MarginContainer" parent="Control"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -17.0
+margin_top = -14.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/RightScoreUI"]
+margin_right = 17.0
+margin_bottom = 14.0
+
+[node name="RightScoreLabel" type="Label" parent="Control/RightScoreUI/HBoxContainer"]
+margin_right = 8.0
+margin_bottom = 14.0
+text = "0"
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -54.0
+margin_top = 20.0
+margin_right = 54.0
+margin_bottom = 34.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer"]
+margin_right = 108.0
+margin_bottom = 14.0
+
+[node name="RockAmountLabel" type="Label" parent="Control/MarginContainer/HBoxContainer"]
+modulate = Color( 0, 0, 0, 1 )
+margin_right = 53.0
+margin_bottom = 14.0
+text = "Rocks: 0"
+
+[node name="EndDelayTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="ThrowSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )

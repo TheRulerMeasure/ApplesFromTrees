@@ -1,0 +1,18 @@
+[remap]
+
+importer="texture_atlas"
+type="Texture"
+path="res://.import/greenappple.png-d9998dbec9b4c5c7f78d1921ada64dc9.res"
+group_file="res://assets/images/.png"
+valid=true
+[deps]
+
+
+source_file="res://temp/prop_images/greenappple.png"
+dest_files=[ "res://.import/greenappple.png-d9998dbec9b4c5c7f78d1921ada64dc9.res" ]
+
+[params]
+
+atlas_file="res://assets/images/.png"
+import_mode=0
+crop_to_region=false
